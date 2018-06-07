@@ -38,10 +38,32 @@ namespace SchoolSystem.Controllers
             return View(model);
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(int Id)
         {
+            var model = _db.Courses.Include("CourseStudents")
+                        .Include("CourseTeachers")
+                        .Include("CourseAssignments")
+                        .ToList().Find(x => x.CourseId == Id);
+            CoursesViewModel coursesViewModel = new CoursesViewModel(model);
 
-            return View();
+
+            return View(coursesViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(string CourseName, string CourseSubject, int id)
+        {
+            var course = _db.Courses.Find(id);
+
+            if (course != null)
+            {
+                course.CourseName = CourseName;
+                course.CourseSubject = CourseSubject;
+            }
+
+            _db.SaveChanges();
+
+            return RedirectToAction("About");
         }
 
         public ActionResult Details(int? id)
@@ -74,6 +96,45 @@ namespace SchoolSystem.Controllers
             }
 
             return PartialView("_Details", coursesViewModel);
+        }
+
+        public ActionResult Add()
+        {
+            List<CoursesViewModel> ViewModels = new List<CoursesViewModel>();
+
+            var model = _db.Courses.Include("CourseStudents")
+                                    .Include("CourseTeachers")
+                                    .Include("CourseAssignments")
+                                    .ToList();
+            foreach (var item in model)
+            {
+
+                ViewModels.Add(new CoursesViewModel(item));
+            }
+
+            return View(ViewModels);
+        }
+
+        [HttpPost]
+        public ActionResult Add(string FirstnameIn, string LastnameIn, params int[] Assignments)
+        {
+            Student student = new Student
+            {
+                FirstName = FirstnameIn,
+                LastName = LastnameIn
+            };
+
+            foreach (var item in Assignments)
+            {
+                var assignment = _db.Courses.Find(item);
+
+                student.Courses.Add(assignment);
+            }
+
+            _db.Students.Add(student);
+
+            _db.SaveChanges();
+            return RedirectToAction("About");
         }
 
         public ActionResult Delete()
