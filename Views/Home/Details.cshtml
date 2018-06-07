@@ -1,0 +1,12 @@
+﻿@model SchoolSystemClasses.Course
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<h3>@Model.CourseName</h3>
+<div>@Model.CourseSubject</div>
+
+@Html.Action("Students", new {id = Model.CourseId})
