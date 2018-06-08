@@ -17,7 +17,7 @@
 
     @foreach (var item in Model)
     {
-        <input type="checkbox" name="Assignments" value="@item.CourseId" checked/><span> @item.CourseName . @item.CourseSubject</span> <br />
+        <input type="checkbox" name="Assignments" value="@item.CourseId" /><span> @item.CourseName . @item.CourseSubject</span> <br />
     }
 
     <input type="submit" value="Add Student" class="btn btn-default"/>

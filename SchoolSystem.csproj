@@ -162,8 +162,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CoursesViewModel.cs" />
+    <Compile Include="Models\LocalModels.cs" />
     <Compile Include="Models\SchoolSystemContext.cs" />
     <Compile Include="Models\SchoolSystemDb.cs" />
+    <Compile Include="Models\StudentsViewModel.cs" />
+    <Compile Include="Models\TeachersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +213,17 @@
     <Content Include="Views\Home\_Details.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Home\EditAll.cshtml" />
+    <Content Include="Views\Home\_EditCourses.cshtml" />
+    <Content Include="Views\Home\EditCourses.cshtml" />
+    <Content Include="Views\Home\ShowEditStudents.cshtml" />
+    <Content Include="Views\Home\ShowEditTeachers.cshtml" />
+    <Content Include="Views\Home\AddAll.cshtml" />
+    <Content Include="Views\Home\AddCourse.cshtml" />
+    <Content Include="Views\Home\AddTeacher.cshtml" />
+    <Content Include="Views\Home\EditStudent.cshtml" />
+    <Content Include="Views\Home\EditTeacher.cshtml" />
+    <Content Include="Views\Home\AddAssignment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
