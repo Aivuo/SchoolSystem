@@ -25,46 +25,46 @@ namespace SchoolSystem.Controllers
             return View(model);
         }
 
-        public ActionResult Contact()
-        {
-            _db.SaveChanges();
-            ViewBag.Message = "Your contact page.";
+        //public ActionResult Contact()
+        //{
+        //    _db.SaveChanges();
+        //    ViewBag.Message = "Your contact page.";
 
-            var model2 = _db.Assignments.Find(1);
-
-
-            var model = model2.Course;
-
-            return View(model);
-        }
-
-        public ActionResult Edit(int Id)
-        {
-            var model = _db.Courses.Include("CourseStudents")
-                        .Include("CourseTeachers")
-                        .Include("CourseAssignments")
-                        .ToList().Find(x => x.CourseId == Id);
-            CoursesViewModel coursesViewModel = new CoursesViewModel(model);
+        //    var model2 = _db.Assignments.Find(1);
 
 
-            return View(coursesViewModel);
-        }
+        //    var model = model2.Course;
 
-        [HttpPost]
-        public ActionResult Edit(string CourseName, string CourseSubject, int id)
-        {
-            var course = _db.Courses.Find(id);
+        //    return View(model);
+        //}
 
-            if (course != null)
-            {
-                course.CourseName = CourseName;
-                course.CourseSubject = CourseSubject;
-            }
+        //public ActionResult Edit(int Id)
+        //{
+        //    var model = _db.Courses.Include("CourseStudents")
+        //                .Include("CourseTeachers")
+        //                .Include("CourseAssignments")
+        //                .ToList().Find(x => x.CourseId == Id);
+        //    CoursesViewModel coursesViewModel = new CoursesViewModel(model);
 
-            _db.SaveChanges();
 
-            return RedirectToAction("About");
-        }
+        //    return View(coursesViewModel);
+        //}
+
+        //[HttpPost]
+        //public ActionResult Edit(string CourseName, string CourseSubject, int id)
+        //{
+        //    var course = _db.Courses.Find(id);
+
+        //    if (course != null)
+        //    {
+        //        course.CourseName = CourseName;
+        //        course.CourseSubject = CourseSubject;
+        //    }
+
+        //    _db.SaveChanges();
+
+        //    return RedirectToAction("About");
+        //}
 
         public ActionResult EditAll()
         {
@@ -155,7 +155,9 @@ namespace SchoolSystem.Controllers
                                     .ToList()
                                     .Find(x => x.StudentId == StudentId);
 
-            StudentsViewModel student = new StudentsViewModel(model);
+            var model2 = _db.Assignments.ToList();
+
+            StudentsViewModel student = new StudentsViewModel(model, model2);
 
             return View(student);
         }
@@ -166,6 +168,7 @@ namespace SchoolSystem.Controllers
             var student = _db.Students.Include("Courses")
                                       .ToList()
                                       .Find(x => x.StudentId == id);
+            
             var coursesDb = _db.Courses.ToList();
 
             if (student != null)

@@ -50,11 +50,12 @@ namespace SchoolSystem.Models
             List<StudentsViewModel> ViewModels = new List<StudentsViewModel>();
 
             var model = _db.Students.Include("Courses").ToList();
+            var model2 = _db.Assignments.ToList();
 
             foreach (var item in model)
             {
 
-                ViewModels.Add(new StudentsViewModel(item));
+                ViewModels.Add(new StudentsViewModel(item, model2));
             }
 
             return ViewModels;
